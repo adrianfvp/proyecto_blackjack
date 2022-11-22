@@ -1,0 +1,26 @@
+
+html, body {
+    margin: 0px;
+    background: radial-gradient(circle, #191594, #080164);
+    color: white;
+}
+
+
+.titulo{
+    text-align: center;
+    background-color: black;
+    color: white;
+    padding: 30px;
+}
+
+.carta {
+    position: relative;
+    width: 120px;
+    left: 40px;
+    margin-left: -75px;
+}
+
+.jugadores {
+    display: flex;
+    justify-content: center;
+}

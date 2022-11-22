@@ -8,9 +8,12 @@ let puntosJugador = 0,
 
 //REFERENCIAS HTML
 const btnPedir = document.querySelector('#btnPedir');
+const btnPlantar = document.querySelector('#btnPlantar');
+const btnNuevo = document.querySelector('#btnNuevo');
 
 const divCartasJugador = document.querySelector('#jugador-cartas');
 const divCartasComputadora = document.querySelector('#computadora-cartas')
+
 const puntosHTML = document.querySelectorAll('strong');
 
 // AQUI CREAMOS UNA NUEVA BARAJA MEZCLADA
@@ -73,8 +76,26 @@ const turnoComputador = ( puntosMinimos ) =>{
         imgCarta.classList.add('carta');
         divCartasComputadora.append( imgCarta );
 
-    } while( puntosComputadora < puntosMinimos )
+        if( puntosMinimos > 21 ){
+            break;
+        }
+
+    } while( (puntosComputadora < puntosMinimos) && (puntosMinimos <= 21) );
+
+    setTimeout(() => {
+        if( puntosComputadora === puntosMinimos ){
+            alert('Naide ha ganado');
+        } else if( puntosMinimos > 21 ){
+            alert('La computadora ha ganado')
+        } else if( puntosComputadora > 21 ){
+            alert('¡HAS GANADO, FELICIDADES!')
+        } else{
+            alert('Has perdido, intentalo de nuevo')
+        }
+    }, 20);
 }
+
+
 
 // EVENTOS 
 
@@ -93,13 +114,42 @@ btnPedir.addEventListener('click', () => {
 
     if ( puntosJugador > 21 ){
         console.warn('Lo siento, perdiste')
-        btnPedir.disabled = true
+        btnPedir.disabled = true;
+        btnPlantar.disabled = true;
+        turnoComputador(puntosJugador);
     } else if( puntosJugador === 21 ){
         console.warn('Genial, tienes 21')
-        btnPedir.disabled = true
+        btnPedir.disabled = true;
+        btnPlantar.disabled = true;
+        turnoComputador(puntosJugador);
     }
 
 
 });
 
+btnPlantar.addEventListener('click', () => {
+    btnPedir.disabled =true;
+    btnPlantar.disabled = true;
 
+    turnoComputador(puntosJugador);
+})
+
+btnNuevo.addEventListener('click', () => {
+
+    console.clear();
+    deck = [];
+    deck = crearDeck();
+
+    puntosJugador = 0;
+    puntosComputadora = 0;
+
+    puntosHTML[0].innerText = 0;
+    puntosHTML[1].innerText = 0;
+
+    divCartasComputadora.innerHTML = '';
+    divCartasJugador.innerHTML = '';
+
+    btnPedir.disabled = false;
+    btnPlantar.disabled = false;
+
+})

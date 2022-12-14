@@ -3,6 +3,7 @@ html, body {
     margin: 0px;
     background: radial-gradient(circle, #191594, #080164);
     color: white;
+    overflow: hidden;
 }
 
 

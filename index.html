@@ -16,8 +16,8 @@
         <div class="row mt-4">
             <div class="col text-center">
                 <button id="btnNuevo" class="btn btn-light">Nuevo juego</button>
-                <button id="btnPedir" class="btn btn-dark">Pedir carta</button>
-                <button id="btnPlantar" class="btn btn-dark">Plantar mi juego</button>
+                <button id="btnPedir" disabled="disabled" class="btn btn-dark">Pedir carta</button>
+                <button id="btnPlantar" disabled="disabled" class="btn btn-dark">Plantar mi juego</button>
             </div>
         </div>
 
@@ -45,7 +45,11 @@
     </main>
 
     <script src="./assets/js/underscore-min.js"></script>
-    <script src="./assets/js/app.js"></script>
+    <script src="./assets/js/app-min.js"></script>
+
+    <script>
+        miModulo.nuevoJuego();
+    </script>
 
 </body>
 </html>

@@ -1,5 +1,5 @@
 
-(() => {
+const miModulo = (() => {
     'use strict'
 
 
@@ -20,9 +20,18 @@
     
     const iniciarJuego = ( numJugadores = 2 ) => {
         deck = crearDeck();
+
+        puntosJugadores = [];
         for ( let i=0; i< numJugadores; i++ ) {
                 puntosJugadores.push(0);
         }
+
+        puntosHTML.forEach( elem => elem.innerText = 0 );
+        divCartasJugadores.forEach( elem => elem.innerText = '' );
+
+        btnPedir.disabled = false;
+        btnPlantar.disabled = false;
+
     }
 
     // AQUI CREAMOS UNA NUEVA BARAJA MEZCLADA
@@ -87,7 +96,7 @@
 
         setTimeout(() => {
             if( puntosComputadora === puntosMinimos ){
-                alert('Naide ha ganado');
+                alert('Nadie ha ganado');
             } else if( puntosMinimos > 21 ){
                 alert('La computadora ha ganado')
             } else if( puntosComputadora > 21 ){
@@ -95,88 +104,64 @@
             } else{
                 alert('Has perdido, intentalo de nuevo')
             }
-        }, 100); 
+        }, 20); 
 
      }
             
-
-
-
-    // TURNO COMPUTADOR 
-    const turnoComputador = ( puntosMinimos ) =>{
-
-        let puntosComputadora = 0;
-
-        do {
-            const carta = pedirCarta(); 
-            puntosComputadora = acumularPuntos(carta, puntosJugadores.length -1);
-            crearCarta(carta, puntosJugadores.length -1)
-
-        } while( (puntosComputadora < puntosMinimos) && (puntosMinimos <= 21) );
-
-        determinarGanador();
-    }
-            
-    // EVENTOS 
-
-    btnPedir.addEventListener('click', () => {
-        const carta = pedirCarta(); 
-        const puntosJugador = acumularPuntos( carta, 0);
-
-        crearCarta(carta, 0);
-
-
-        if ( puntosJugador > 21 ){
-            console.warn('Lo siento, perdiste')
-            btnPedir.disabled = true;
-            btnPlantar.disabled = true;
-            turnoComputador(puntosJugador);
-        } else if( puntosJugador === 21 ){
-            console.warn('Genial, tienes 21')
-            btnPedir.disabled = true;
-            btnPlantar.disabled = true;
-            turnoComputador(puntosJugador);
-        }
-
-
-    });
-
-    btnPlantar.addEventListener('click', () => {
-        btnPedir.disabled =true;
-        btnPlantar.disabled = true;
-
-        turnoComputador(puntosJugador);
-    })
-
-    btnNuevo.addEventListener('click', () => {
-
-        console.clear();
-        iniciarJuego();
-        
-        // deck = [];
-        // deck = crearDeck();
-
-        // puntosJugador = 0;
-        // puntosComputadora = 0;
-
-        // puntosHTML[0].innerText = 0;
-        // puntosHTML[1].innerText = 0;
-
-        // divCartasComputadora.innerHTML = '';
-        // divCartasJugador.innerHTML = '';
-
-        // btnPedir.disabled = false;
-        // btnPlantar.disabled = false;
-
-})
-
-})();
-
-
-
-
-
-
-
-
-
+     // TURNO COMPUTADOR 
+     const turnoComputador = ( puntosMinimos ) =>{
+ 
+         let puntosComputadora = 0;
+ 
+         do {
+             const carta = pedirCarta(); 
+             puntosComputadora = acumularPuntos(carta, puntosJugadores.length -1);
+             crearCarta(carta, puntosJugadores.length -1)
+ 
+         } while( (puntosComputadora < puntosMinimos) && (puntosMinimos <= 21) );
+ 
+         determinarGanador();
+     }
+             
+     // EVENTOS 
+ 
+     btnPedir.addEventListener('click', () => {
+         const carta = pedirCarta(); 
+         const puntosJugador = acumularPuntos( carta, 0);
+ 
+         crearCarta(carta, 0);
+ 
+ 
+         if ( puntosJugador > 21 ){
+             console.warn('Lo siento, perdiste')
+             btnPedir.disabled = true;
+             btnPlantar.disabled = true;
+             turnoComputador(puntosJugador);
+         } else if( puntosJugador === 21 ){
+             console.warn('Genial, tienes 21')
+             btnPedir.disabled = true;
+             btnPlantar.disabled = true;
+             turnoComputador(puntosJugador);
+         }
+ 
+ 
+     });
+ 
+     btnPlantar.addEventListener('click', () => {
+         btnPedir.disabled = true;
+         btnPlantar.disabled = true;
+ 
+         turnoComputador( puntosJugadores[0] );
+     })
+ 
+     btnNuevo.addEventListener('click', () => {
+         
+         iniciarJuego();
+ 
+     })
+ 
+     return {
+         nuevoJuego: iniciarJuego
+     };
+ 
+ })();
